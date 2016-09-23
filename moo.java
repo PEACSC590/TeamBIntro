@@ -1,28 +1,41 @@
 public class moo
 {
 	public static void main(String[] args) {
-		int[][] numbers = new int[5][5];
-		for (int i=0; i< 5; i++) {
-			for (int j=0; j< 5; j++) {
+		int size = 5;
+		int[][] numbers = new int[size][size];
+		for (int i=0; i< size; i++) {
+			for (int j=0; j< size; j++) {
 				numbers[i][j] = (int) (Math.random() * 200  - 100);
-				//System.out.print(numbers[i][j] + " " );
+				for (int k=0; k<(3 - Integer.toString(numbers[i][j]).length()); k++) {
+					System.out.print(" ");
+				}
+				System.out.print(numbers[i][j] + " " );
 			}
+			System.out.println("");
 		}
 		
-		for (int i=0;i<5;i++) {
-			for (int j=0; j<5; j++) {
-
+		boolean no_saddle = true;
+		for (int i=0;i<size;i++) {
+			for (int j=0; j<size; j++) {
 				boolean t = true;
-				// check row
-				for (int l=0; l<5; l++) {
-					if (numbers[i][j] < numbers[i][l]) {t = false;}
+				// check row condition
+				for (int l=0; l<size; l++) {
+					if (numbers[i][j] < numbers[i][l]) {
+						t = false;
+					}
 				}
-				// check column
-				for (int k=0; k<5; k++) {
+				// check column condition
+				for (int k=0; k<size; k++) {
 					if (numbers[i][j] > numbers[k][j]) {t= false;}
 				}
-				if (t == true) {System.out.print("("+i+","+j+")");}
+				if (t == true) {
+					no_saddle = false;
+					System.out.println("Row "+(i+1)+" Column "+(j+1)+" is a saddle point");
+				}
 			}
+		}
+		if (no_saddle) {
+			System.out.println("No saddle points");
 		}
 
 		//output
